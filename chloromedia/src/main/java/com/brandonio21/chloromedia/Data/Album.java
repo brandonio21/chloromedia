@@ -43,8 +43,15 @@ public class Album extends ProviderItem {
 
     ChloromediaTask<Void, ProviderItem, List<ProviderItem>> getChildrenFromProvider(PreExecutionOperation preOperation,
                                                                                     ProgressUpdateOperation<ProviderItem> progressOperation,
-                                                                                    PostExecutionOperation<List<ProviderItem>> postOperation) {
-        return this.mediaProvider.getSubItems(this, preOperation, progressOperation, postOperation);
+                                                                                    final PostExecutionOperation<List<ProviderItem>> postOperation) {
+        PostExecutionOperation<List<ProviderItem>> cacheLocallyThenPerformUserPost = new PostExecutionOperation<List<ProviderItem>>() {
+            @Override
+            public void execute(List<ProviderItem>... result) {
+                children = result[0];
+                postOperation.execute(result);
+            }
+        };
+        return this.mediaProvider.getSubItems(this, preOperation, progressOperation, cacheLocallyThenPerformUserPost);
     }
 
     List<ProviderItem> sort(SortMode sortMode, SortDirection sortDirection) {
