@@ -27,11 +27,14 @@ public abstract class MediaProvider {
         this.exclusionTable.unexcludeItem(item);
     }
 
-    public abstract AsyncTask<Void, ProviderItem, Album> getRootAlbum();
+    public abstract ChloromediaTask<Void, ProviderItem, Album> getRootAlbum(PreExecutionOperation preOperation,
+                                                                            ProgressUpdateOperation<ProviderItem> progressOperation,
+                                                                            PostExecutionOperation<Album> postOperation);
+
     public abstract ChloromediaTask<Void, ProviderItem, List<ProviderItem>> getSubItems(Album album,
                                                                                         PreExecutionOperation preOperation,
-                                                                                        ProgressUpdateOperation progressOperation,
-                                                                                        PostExecutionOperation postOperation);
+                                                                                        ProgressUpdateOperation<ProviderItem> progressOperation,
+                                                                                        PostExecutionOperation<List<ProviderItem>> postOperation);
 
     abstract void moveItem(ProviderItem item, Album newParent);
     abstract void deleteItem(ProviderItem item);

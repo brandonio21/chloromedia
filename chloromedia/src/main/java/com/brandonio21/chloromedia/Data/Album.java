@@ -29,8 +29,8 @@ public class Album extends ProviderItem {
     }
 
     ChloromediaTask<Void, ProviderItem, List<ProviderItem>> getChildren(PreExecutionOperation preOperation,
-                                                                        ProgressUpdateOperation progressOperation,
-                                                                        PostExecutionOperation postOperation) {
+                                                                        ProgressUpdateOperation<ProviderItem> progressOperation,
+                                                                        PostExecutionOperation<List<ProviderItem>> postOperation) {
         if (this.childrenHaveBeenLoaded())
             return new GetLoadedItemsTask(preOperation, progressOperation, postOperation);
         else
@@ -42,8 +42,8 @@ public class Album extends ProviderItem {
     }
 
     ChloromediaTask<Void, ProviderItem, List<ProviderItem>> getChildrenFromProvider(PreExecutionOperation preOperation,
-                                                                                    ProgressUpdateOperation progressOperation,
-                                                                                    PostExecutionOperation postOperation) {
+                                                                                    ProgressUpdateOperation<ProviderItem> progressOperation,
+                                                                                    PostExecutionOperation<List<ProviderItem>> postOperation) {
         return this.mediaProvider.getSubItems(this, preOperation, progressOperation, postOperation);
     }
 
