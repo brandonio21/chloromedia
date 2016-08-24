@@ -1,4 +1,4 @@
-package com.brandonio21.chromedia;
+package com.brandonio21.chloromedia;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Chromedia.iml" filepath="$PROJECT_DIR$/Chromedia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Chloromedia.iml" filepath="$PROJECT_DIR$/Chloromedia.iml" />
       <module fileurl="file://$PROJECT_DIR$/chloromedia/chloromedia.iml" filepath="$PROJECT_DIR$/chloromedia/chloromedia.iml" />
     </modules>
   </component>
