@@ -27,22 +27,22 @@ public class Album extends ProviderItem {
     }
 
     @Override
-    Bitmap getPreviewImage() {
+    public Bitmap getPreviewImage() {
         return null;
     }
 
     @Override
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
     @Override
-    Date getDate() {
+    public Date getDate() {
         return null;
     }
 
     @Override
-    Long getSize() {
+    public Long getSize() {
         return null;
     }
 

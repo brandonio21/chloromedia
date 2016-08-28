@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class AndroidMediaProvider extends MediaProvider {
 
-    protected AndroidMediaProvider(ExclusionTable exclusionTable) {
+    public AndroidMediaProvider(ExclusionTable exclusionTable) {
         super(exclusionTable);
     }
 

@@ -15,11 +15,11 @@ public abstract class ProviderItem {
         this.metadata = metadata;
     }
 
-    abstract Bitmap getPreviewImage();
+    public abstract Bitmap getPreviewImage();
 
-    abstract String getName();
-    abstract Date getDate();
-    abstract Long getSize();
+    public abstract String getName();
+    public abstract Date getDate();
+    public abstract Long getSize();
 
     public ProviderItemMetadata getMetadata() {
         return this.metadata;
