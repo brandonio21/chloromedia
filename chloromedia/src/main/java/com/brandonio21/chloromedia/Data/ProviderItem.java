@@ -5,13 +5,12 @@ import android.graphics.Bitmap;
 import com.brandonio21.chloromedia.MediaProviders.MediaProvider;
 
 import java.util.Date;
-import java.util.Map;
 
 public abstract class ProviderItem {
     MediaProvider mediaProvider;
-    Map<String, ProviderItemMetadata> metadata;
+    ProviderItemMetadata metadata;
 
-    ProviderItem(MediaProvider mediaProvider, Map<String, ProviderItemMetadata> metadata) {
+    ProviderItem(MediaProvider mediaProvider, ProviderItemMetadata metadata) {
         this.mediaProvider = mediaProvider;
         this.metadata = metadata;
     }
@@ -22,8 +21,8 @@ public abstract class ProviderItem {
     abstract Date getDate();
     abstract Long getSize();
 
-    <T extends ProviderItemMetadata> T getMetadata(String metadataKey) {
-        return (T) this.metadata.get(metadataKey);
+    public ProviderItemMetadata getMetadata() {
+        return this.metadata;
     }
 
     void move(Album newParent) {
@@ -34,7 +33,7 @@ public abstract class ProviderItem {
         this.mediaProvider.deleteItem(this);
     }
 
-   void rename(String newName) {
-       this.mediaProvider.renameItem(this, newName);
-   }
+    void rename(String newName) {
+        this.mediaProvider.renameItem(this, newName);
+    }
 }
