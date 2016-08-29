@@ -5,9 +5,6 @@ import com.brandonio21.chloromedia.Data.ProviderItemMetadata;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by brand on 8/28/2016.
- */
 public class AndroidMediaProviderAlbumMetadata extends ProviderItemMetadata {
     String albumBucketId;
     List<String> mediaIds;

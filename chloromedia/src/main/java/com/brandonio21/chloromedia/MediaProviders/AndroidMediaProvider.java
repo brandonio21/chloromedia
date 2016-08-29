@@ -16,6 +16,7 @@ import com.brandonio21.chloromedia.Data.Album;
 import com.brandonio21.chloromedia.Data.ProviderItem;
 import com.brandonio21.chloromedia.ExclusionTables.ExclusionTable;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -30,14 +31,16 @@ public class AndroidMediaProvider extends MediaProvider {
     @Override
     public AsyncTask<Context, Album, Collection<Album>>
     getAlbums(PreExecutionOperation preOperation,
-             ProgressUpdateOperation<Album> progressOperation,
-             PostExecutionOperation<Collection<Album>> postOperation) {
+              ProgressUpdateOperation<Album> progressOperation,
+              PostExecutionOperation<Collection<Album>> postOperation) {
 
         return new ChloromediaMediaProviderTask<Context, Album, Collection<Album>>(
                 this,
                 preOperation,
                 progressOperation,
                 postOperation) {
+
+
 
             @Override
             protected Collection<Album> doInBackground(Context... context) {
@@ -107,8 +110,56 @@ public class AndroidMediaProvider extends MediaProvider {
         return null;
     }
 
+    String getMediaURIFromId(Context context, String id) {
+        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.Images.Media.DATA
+        };
+
+        Cursor cursor;
+        try {
+            cursor = context.getContentResolver().query(uri, projection,
+                    MediaStore.Images.Media._ID + "=?",
+                    new String[] {id},
+                    null);
+        }
+        catch (Exception ex) {
+            return "";
+        }
+
+        int uriColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+        while (cursor.moveToNext()) {
+            return cursor.getString(uriColumnIndex);
+        }
+        return "";
+    }
+
     @Override
-    public Bitmap getImage(ProviderItem item) {
+    public Bitmap getImage(Context context, ProviderItem item) {
+        if (item instanceof Album)
+            return this.getImageForAlbum(context, (Album) item);
+        else
+            return null;
+    }
+
+
+    Bitmap getImageForAlbum(Context context, Album album) {
+        AndroidMediaProviderAlbumMetadata albumMetadata = (AndroidMediaProviderAlbumMetadata) album.getMetadata();
+        if (albumMetadata.mediaIds.size() > 0) {
+            return this.getImageFromMediaId(context, albumMetadata.mediaIds.iterator().next());
+        }
+        else {
+            return null;
+        }
+    }
+
+    Bitmap getImageFromMediaId(Context context, String mediaId) {
+        Uri mediaURI = Uri.parse(this.getMediaURIFromId(context, mediaId));
+        try {
+            return MediaStore.Images.Media.getBitmap(context.getContentResolver(), mediaURI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

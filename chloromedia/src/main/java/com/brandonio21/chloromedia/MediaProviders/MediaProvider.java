@@ -57,7 +57,7 @@ public abstract class MediaProvider {
                                                                                         ProgressUpdateOperation<ProviderItem> progressOperation,
                                                                                         PostExecutionOperation<List<ProviderItem>> postOperation);
 
-    public abstract Bitmap getImage(ProviderItem item);
+    public abstract Bitmap getImage(Context context, ProviderItem item);
 
     public abstract void moveItem(ProviderItem item, Album newParent);
     public abstract void deleteItem(ProviderItem item);

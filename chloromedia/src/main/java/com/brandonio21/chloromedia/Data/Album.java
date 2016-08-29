@@ -1,5 +1,6 @@
 package com.brandonio21.chloromedia.Data;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.brandonio21.chloromedia.Async.ChloromediaTask;
@@ -27,8 +28,8 @@ public class Album extends ProviderItem {
     }
 
     @Override
-    public Bitmap getPreviewImage() {
-        return null;
+    public Bitmap getPreviewImage(Context context) {
+        return this.getCoverImage(context);
     }
 
     @Override
@@ -80,14 +81,14 @@ public class Album extends ProviderItem {
         this.coverImage = image;
     }
 
-    Bitmap getCoverImage() {
+    Bitmap getCoverImage(Context context) {
         if (this.coverImage != null)
             return this.coverImage;
 
         if (this.children.size() > 0)
-            return this.children.iterator().next().getPreviewImage();
+            return this.children.iterator().next().getPreviewImage(context);
         else
-            return this.mediaProvider.getImage(this);
+            return this.mediaProvider.getImage(context, this);
     }
 
     class GetLoadedItemsTask extends ChloromediaTask<Void, ProviderItem, List<ProviderItem>> {

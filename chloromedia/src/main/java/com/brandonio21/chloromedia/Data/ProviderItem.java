@@ -1,5 +1,6 @@
 package com.brandonio21.chloromedia.Data;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.brandonio21.chloromedia.MediaProviders.MediaProvider;
@@ -15,7 +16,7 @@ public abstract class ProviderItem {
         this.metadata = metadata;
     }
 
-    public abstract Bitmap getPreviewImage();
+    public abstract Bitmap getPreviewImage(Context context);
 
     public abstract String getName();
     public abstract Date getDate();
