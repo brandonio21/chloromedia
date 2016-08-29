@@ -1,5 +1,6 @@
 package com.brandonio21.chloromedia.Data;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.brandonio21.chloromedia.MediaProviders.MediaProvider;
@@ -15,7 +16,7 @@ public class Media extends ProviderItem {
     }
 
     @Override
-    public Bitmap getPreviewImage() {
+    public Bitmap getPreviewImage(Context context) {
         return null;
     }
 

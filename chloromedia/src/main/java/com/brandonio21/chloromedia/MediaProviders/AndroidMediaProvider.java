@@ -16,7 +16,6 @@ import com.brandonio21.chloromedia.Data.Album;
 import com.brandonio21.chloromedia.Data.ProviderItem;
 import com.brandonio21.chloromedia.ExclusionTables.ExclusionTable;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -154,13 +153,8 @@ public class AndroidMediaProvider extends MediaProvider {
     }
 
     Bitmap getImageFromMediaId(Context context, String mediaId) {
-        Uri mediaURI = Uri.parse(this.getMediaURIFromId(context, mediaId));
-        try {
-            return MediaStore.Images.Media.getBitmap(context.getContentResolver(), mediaURI);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return MediaStore.Images.Thumbnails.getThumbnail(
+                context.getContentResolver(), Long.parseLong(mediaId), MediaStore.Images.Thumbnails.MINI_KIND, null);
     }
 
 

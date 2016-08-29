@@ -85,10 +85,15 @@ public class Album extends ProviderItem {
         if (this.coverImage != null)
             return this.coverImage;
 
+        Bitmap coverImage;
+
         if (this.children.size() > 0)
-            return this.children.iterator().next().getPreviewImage(context);
+            coverImage = this.children.iterator().next().getPreviewImage(context);
         else
-            return this.mediaProvider.getImage(context, this);
+            coverImage = this.mediaProvider.getImage(context, this);
+
+        this.setCoverImage(coverImage);
+        return coverImage;
     }
 
     class GetLoadedItemsTask extends ChloromediaTask<Void, ProviderItem, List<ProviderItem>> {
